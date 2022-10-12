@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+  <title>Omifood Hero Section</title>
+  <style>
+    /*
+    SPACING SYSTEM (px)
+    2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
+
+    FONT SIZE SYSTEM (px)
+    10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
+    */
+
+    /* MAIN COLOR SYSTEM
+    main color:#087f5b
+    grey color:#343a40 */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* ------------------------ */
+    /* GENERAL STYLES */
+    /* ------------------------ */
+    body {
+      font-family: "Merriweather", sans-serif;
+      color: #343a40;
+      line-height: 1;
+    }
+
+    nav{
+      font-size:20px;
+      font-weight:700;
+      display:flex;
+      justify-content: space-between;
+      /* background-color: green; */
+      /* background-image: linear-gradient(to right, red, blue);  */
+      /* set the navigation color and it changes directions */
+
+      }
+    
+    .container{
+      margin:0 auto;
+      width:1200px;
+      /* background-color: red; */
+    }
+
+    .header-container{
+      width:1200px;
+      /* 50% related to parent size to bottom */
+      position: absolute;
+      left:50%;
+      top:50%;
+      /* 50% related to element size to bottom */
+      transform: translate(-50%,-50%);
+
+      /* background-color: violet; */
+      text-align:center;}
+
+    header{
+      /* background-color: orangered; */
+      height: 100vh;
+      /* vh:viewport-height; vw:viewpoint-width */
+      /* display:flex;
+      align-items: center; */
+      position: relative;
+      /* attach the background photo give it an url, make the bg color more darker for distingishing fonts with the same grey color 🌟*/
+      background-image: linear-gradient(rgba(34, 34, 34, 0.6),rgba(34, 34, 34, 0.6)),url(/Users/macbookpro/Desktop/06-Components/hero.jpg);
+      /* Adjust background photo size */
+      background-size: cover;
+      /* setting colors of text and image, making it clear to read */
+      color:#fff;
+
+
+    }
+
+    .header-container-inner{
+      width:50%;
+      /* background-color: blue; */
+    }
+
+    h1{
+      font-size:52px;
+      margin-bottom: 32px;
+      line-height:1.05;
+      }
+
+    p{
+      font-size:20px;
+      line-height:1.6;
+      margin-bottom: 48px;}
+    
+    .btn:link,
+    .btn:visited{
+      font-size:20px;
+      font-weight:600;
+      background-color: #e67e22;
+      color:#fff;
+      text-decoration: none;
+      padding:16px 32px;
+      border-radius: 9px;}
+    
+    h2{
+      font-size:44px;
+      margin-bottom: 48px;}
+
+    section{
+      padding:96px 0;
+      background-color: #f7f7f7;}
+
+
+
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="container">
+      <div>LOGO</div>
+      <div>NAVIGATION</div>
+    </nav>
+
+    <div class="header-container">
+     <div class="header-container-inner">
+      <h1>A healthy meal delivered to your door, every single day</h1>
+      <p>The smart 365-days-per-year food subscription that will make you eat healthy again. Tailored to your personal tastes and nutritional needs</p>
+      <a href="#" class="btn">Start Eating Well</a>
+     </div>
+    </div>
+  </header>
+  <section>
+    <div class="container">
+      <h2>Some random heading</h2>
+      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit libero debitis aperiam sunt veniam inventore, voluptas ab aspernatur dignissimos, repudiandae modi laboriosam a fuga magnam iste excepturi deserunt cumque quas. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo eos, excepturi ducimus eum rerum possimus aliquam nobis asperiores. Asperiores magni facilis beatae praesentium deserunt, assumenda impedit delectus ducimus iure et.</p>
+    </div>
+  </section>
+  
+</body>
+</html>
