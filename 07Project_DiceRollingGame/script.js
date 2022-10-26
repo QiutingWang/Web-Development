@@ -1,5 +1,4 @@
 'use strict';
-
 /////Selecting elements/////
 const player0El=document.querySelector('.player--0');
 const player1El=document.querySelector('.player--1');
@@ -13,10 +12,11 @@ const btnNew=document.querySelector('.btn--new');
 const btnRoll=document.querySelector('.btn--roll');
 const btnHold=document.querySelector('.btn--hold');
 
-let scores, currentScore, activePlayer, playing; 
+let scores, currentScore, activePlayer, playing; //establish the variables with empty
 
 /////Starting Conditions/////
 const init=function(){
+  //reassign the values of corresponding variables defined above
   scores=[0,0]; //store the scores into an array.player0 in the position0, player1 in the position1.
   currentScore=0;
   activePlayer=0;
@@ -33,7 +33,7 @@ const init=function(){
   player0El.classList.add('player--active');
   player1El.classList.remove('player--active');
 };
-init();
+init(); //call the function
 
 const switchPlayer=function(){
   document.getElementById(`current--${activePlayer}`).textContent=0; 
