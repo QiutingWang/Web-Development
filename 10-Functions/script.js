@@ -72,7 +72,7 @@ const oneWord=function(str){
   return str.replace(/ /g,'').toLowerCase(); //write in regular expression with g flag for global and replace it with simply empty string
 };
 const upperFirstWord=function(str){
-  const[first, ...others] =str.split(' ');
+  const[first, ...others] =str.split(' '); //... 扩展运算符
   return [first.toUpperCase(), ...others].join(' ');
 };
 //Higher Order Function
