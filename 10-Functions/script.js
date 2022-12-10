@@ -99,40 +99,6 @@ document.body.addEventListener('click',kissMe); //if we click the body of the ht
 
 ['Doris','Amanda','Anita'].forEach(kissMe); //3 💋
 
-/////////////////////////////////////////////////
-/////Functions Accepting Callback Functions/////
-// Advantage: split up our code to more reusable and interconnected parts, and allow us to create obstructions, without caring so much detail, thinking at a higher level
-const oneWord=function(str){
-  return str.replace(/ /g,'').toLowerCase(); //write in regular expression with g flag for global and replace it with simply empty string
-};
-const upperFirstWord=function(str){
-  const[first, ...others] =str.split(' ');
-  return [first.toUpperCase(), ...others].join(' ');
-};
-//Higher Order Function
-const transformer=function(str, fn){
-  console.log(`Original String:${str}`); 
-  console.log(`Transformed String:${fn(str)}`);
-  console.log(`Transformed by:${fn.name}`);
-}
-//input the Callback functions fn
-transformer('Wishing many future successes！',upperFirstWord);
-//Original String:Wishing you many future successes!
-//Transformed String:WISHING many future successes！
-//Transformed by:upperFirstWord
-transformer('Wishing many future successes！',oneWord);
-//Original String:Wishing you many future successes
-//Transformed String:wishingmanyfuturesuccesses！
-//Transformed by:oneWord
-
-// With eventListener function, callback all the time
-const kissMe=function(){
-  console.log('💋');
-}
-document.body.addEventListener('click',kissMe); //if we click the body of the html file, then 💋 in console
-
-['Doris','Amanda','Anita'].forEach(kissMe); //3 💋
-
 
 ///////////////////////////////////////
 /////Functions Returning Functions/////
