@@ -98,3 +98,108 @@ const kissMe=function(){
 document.body.addEventListener('click',kissMe); //if we click the body of the html file, then 💋 in console
 
 ['Doris','Amanda','Anita'].forEach(kissMe); //3 💋
+
+/////////////////////////////////////////////////
+/////Functions Accepting Callback Functions/////
+// Advantage: split up our code to more reusable and interconnected parts, and allow us to create obstructions, without caring so much detail, thinking at a higher level
+const oneWord=function(str){
+  return str.replace(/ /g,'').toLowerCase(); //write in regular expression with g flag for global and replace it with simply empty string
+};
+const upperFirstWord=function(str){
+  const[first, ...others] =str.split(' ');
+  return [first.toUpperCase(), ...others].join(' ');
+};
+//Higher Order Function
+const transformer=function(str, fn){
+  console.log(`Original String:${str}`); 
+  console.log(`Transformed String:${fn(str)}`);
+  console.log(`Transformed by:${fn.name}`);
+}
+//input the Callback functions fn
+transformer('Wishing many future successes！',upperFirstWord);
+//Original String:Wishing you many future successes!
+//Transformed String:WISHING many future successes！
+//Transformed by:upperFirstWord
+transformer('Wishing many future successes！',oneWord);
+//Original String:Wishing you many future successes
+//Transformed String:wishingmanyfuturesuccesses！
+//Transformed by:oneWord
+
+// With eventListener function, callback all the time
+const kissMe=function(){
+  console.log('💋');
+}
+document.body.addEventListener('click',kissMe); //if we click the body of the html file, then 💋 in console
+
+['Doris','Amanda','Anita'].forEach(kissMe); //3 💋
+
+
+///////////////////////////////////////
+/////Functions Returning Functions/////
+//A useful technique in Functional Programming
+const greet =function(greeting){
+  return function(name){
+    console.log(`${greeting} ${name}.`);
+  };
+}
+//Rewrite greet function above using arrow function. Reference:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions 
+//param=>expression
+const greetArr=greeting => name=> console.log(`${greeting} ${name}.`);
+greetArr('Hi')('Doris'); //Hi Doris.
+
+const greeterHi = greet('Hi!'); //the first function greet we stored in this new variable, this variable is still a function, and we can call it later
+greeterHi('Doris'); //Hi! Doris.
+greeterHi('Sean'); //Hi! Sean.
+// Closures: complex and difficult topic. Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
+
+//🌟Another simplified way:
+greet('Hello')('Doris'); //Hello Doris. //greet('Hello') is a function, then we call it with adding ('Doris') to pass the input into argument name
+
+
+////////////////////////////////////
+/////The Call and Apply Methods/////
+// this keyword 
+const lufthansa={
+  airline:'Lufthansa',
+  iataCode:'LU',
+  bookings:[],
+  // Old way: book: function(){} in object
+  book(flightNumber,passengerName){
+    console.log(`${passengerName} booked a seat on ${this.airline} flight ${this.iataCode}${flightNumber}.`); //this keyword points out lufthansa object itself
+    this.bookings.push({flight:`${this.iataCode}${flightNumber}`, passengerName});
+  },
+};
+
+lufthansa.book(329, 'Doris Wang'); //Doris Wang booked a seat on Lufthansa flight LU329.
+console.log(lufthansa); //{airline: 'Lufthansa', iataCode: 'LU', bookings: Array(1), book: ƒ}
+
+//Suppose add a new airplane, to reuse the part of function above, we need to name the key the same as before
+const eurowings={
+  airline:'Eurowings',
+  iataCode:'EW',
+  bookings: [],
+};
+const book=lufthansa.book; //store the book function in lufthansa object into a new function also called book, reusing it afterwards
+// book(23, 'Solomon John'); //the regular call has problem, the problem is how to make JS know this keyword refers to what. Totally, there are 3 methods to do this: call, apply, bind.
+/////Call Method:
+book.call(eurowings, 235, 'Solomon John');//the first argument is what this keyword we want to point to. The later functions after the first one are all the arguments from the original function. In this case, the flight number and passenger name
+// return:Solomon John booked a seat on Eurowings flight EW235.
+console.log(eurowings); //{airline: 'Eurowings', iataCode: 'EW', bookings: Array(1)}
+book.call(lufthansa, 244, 'Mary Cooper'); //Mary Cooper booked a seat on Lufthansa flight LU244.
+
+const swiss={
+  airline:'Swiss Airlines',
+  iataCode:'SA',
+  bookings:[],
+}
+book.call(swiss,583, 'Doris Wang');//Doris Wang booked a seat on Swiss Airlines flight SA583.
+console.log(swiss); //{airline: 'Swiss Airlines', iataCode: 'SA', bookings: Array(1)}
+
+/////Apply Method:
+// Apply does not receive a list of arguments after the this keyword, instead it takes the array of the arguments. 
+// The first argument is the same with call method:what this refers to.
+const flightData=[583, 'Winston Thomas'];
+book.apply(swiss, flightData); //Winston Thomas booked a seat on Swiss Airlines flight SA583.
+console.log(swiss); //{airline: 'Swiss Airlines', iataCode: 'SA', bookings: Array(2)}
+// Another Way:
+book.call(swiss, ...flightData); //Winston Thomas booked a seat on Swiss Airlines flight SA583.
