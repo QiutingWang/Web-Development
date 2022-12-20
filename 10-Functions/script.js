@@ -169,3 +169,47 @@ book.apply(swiss, flightData); //Winston Thomas booked a seat on Swiss Airlines 
 console.log(swiss); //{airline: 'Swiss Airlines', iataCode: 'SA', bookings: Array(2)}
 // Another Way:
 book.call(swiss, ...flightData); //Winston Thomas booked a seat on Swiss Airlines flight SA583.
+
+/////////////////////
+/////Bind Method/////
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind
+//Bind doesn't immediately call the function, instead it returns a new function, where the this keyword is bound. It sets to any value we pass into bind.
+//Syntax: .bind(thisArg,arg1,...)
+//an object can borrow a method from another object.
+const bookEW= book.bind(eurowings);  
+const bookLU=book.bind(lufthansa);
+const bookSA= book.bind(swiss);
+bookEW(55, 'Abel Smith'); //return: Abel Smith booked a seat on Eurowings flight EW55.
+
+//pass multiple arguments into bind, specify part of argument beforehand-->"partial application"
+const bookEW23 = book.bind(eurowings,23);
+bookEW23('Doris Wang');//Doris Wang booked a seat on Eurowings flight EW23. //In this case,we only need to pass the passenger name according to the function defined above
+
+/////Preserving this
+//use object and eventListeners with bind method
+lufthansa.planes= 300;
+lufthansa.buyPlane= function(){
+  console.log(this);
+  this.planes++; //to add a new plane once we click the button
+  console.log(this.planes);
+};
+//we still need to use this keyword to point to lufthansa itself, but not the button in html document
+//Then we should manually define what is this keyword refers to-->we use bind to return a new function
+document.querySelector('.buy').addEventListener('click',lufthansa.buyPlane.bind(lufthansa)); //301
+
+/////Function Borrowing
+//Another Example: Partial Application with bind method:
+const addTax= (rate, value)=> value + value*rate;
+console.log(addTax(0.10, 200)); //220
+//VAT=the value of the tax
+const addVAT= addTax.bind(null,0.23);
+console.log(addVAT(300)); //369
+
+/////Another Way: Create a function to return one function
+const addTaxRate=function(rate){
+  return function(value){
+    return value+ value*rate;
+  }
+};
+const addVAT2=addTaxRate(0.23);
+console.log(addVAT2(300)); //369
