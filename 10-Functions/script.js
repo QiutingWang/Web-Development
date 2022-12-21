@@ -213,3 +213,77 @@ const addTaxRate=function(rate){
 };
 const addVAT2=addTaxRate(0.23);
 console.log(addVAT2(300)); //369
+
+/////////////////////////////////////////////////////////
+/////Immediately Invoked Function Expressions (IIFE)/////
+//we need some functions only execute once, never again and then disappear
+const runOnce= function(){
+  console.log('This function will never run again!');
+}
+runOnce(); //This function will never run again!
+
+/////IIFE
+//references:https://developer.mozilla.org/en-US/docs/Glossary/IIFE
+
+//add a bracket out of the statement,making it convert to an expression, treated as a grouping operator
+//Avoid polluting the global namespace
+(function(){
+  console.log('This function will never run again!');
+})(); //This function will never run again! //we add () to immediately invoke it.
+
+/////Also work for arrow function
+//First add a bracket out of the statement, then add () to call it.
+(()=>console.log('This function will ALSO never run again!'))(); //This function will ALSO never run again!
+
+//Functions create scopes, one scope does not have access to variables from an inner scope. In reverse, may have ability to achieve.Related to data encapsulation and data privacy, for protecting the variables from being accidentally overwritten by some other parts(libraries, external scripts).
+//Variable declaration with let and const create the own scope in its block
+{
+  const isPrivate= 23;
+  var notPrivate=22;
+}
+// console.log(isPrivate); //inaccessible
+console.log(notPrivate); //22, it is accessible.
+
+
+////////////////////
+/////Closures🌟/////
+//VE attached to the function,exactly as it was at the time and place the function is created.
+//The function gives a reference to its outer scope, which preserves the scope chain throughout time.
+//like a backpack that function carries around whatever it goes. This backpack has all the variables that were present in the environment where the function was created.
+// We do not need to create closure manually, just need to recognize it.
+//https://dmitripavlutin.com/simple-explanation-of-javascript-closures/
+const secureBooking=function(){
+  let passengerCount=0;
+  return function(){
+    passengerCount++;
+    console.log(`${passengerCount} passengers`);
+  }
+}
+
+const booker= secureBooking(); //store the results in a new function called booker
+//the closures close the parent's scope or over its parents variable environment. And it attached over the VE.
+//Owing to the closure, the function doesn't lose connection with variables that exists at the function's birthplace.
+//The closure has priority of the scope chain.
+booker();//without any arguments //1 passengers
+booker(); //2 passengers
+//Any function always has access to the variable environment of the execution context in which the function was created.
+console.dir(booker); //get the function itself: ƒ anonymous()
+/////Analyzing Call Stack and Scope Chain
+//code is running in a global execution context, with variable environment contains all variables in secureBooking() EC.
+//the scope is the variables of secureBooking function
+
+/////Definitions/////
+/////Scope:https://www.geeksforgeeks.org/explain-scope-and-scope-chain-in-javascript/
+//determines the accessibility of variables and functions at various parts in one’s own code
+//what variables or functions one could access and what variables or functions one cannot access.
+//Types: Global scope, Local/function scope, Block scope 
+/////Scope Chain:
+//Scope Chain means that one variable has a scope is used by another variable or function having another scope.
+
+/////Call Stack
+// to keep track of multiple function calls.Every time you invoke a function, it's added to the stack.
+// data can be pushed and popped and follows the Last In First Out (LIFO) principle
+//for memorizing which function is running right now. 
+
+////////////////////////////////
+/////More Closures Examples/////
