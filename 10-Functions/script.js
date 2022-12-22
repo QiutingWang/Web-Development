@@ -285,5 +285,43 @@ console.dir(booker); //get the function itself: ƒ anonymous()
 // data can be pushed and popped and follows the Last In First Out (LIFO) principle
 //for memorizing which function is running right now. 
 
+
 ////////////////////////////////
 /////More Closures Examples/////
+//Example1:
+let f; //define an empty variable
+const g=function(){
+  const a=22;
+  f=function(){
+    console.log(a*2); //reassign the value
+  }
+}
+const h=function(){
+  const b=777;
+  f=function(){
+    console.log(b*2)
+  }
+}
+//call the function
+g();
+f();//44
+h(); //1554
+f();
+console.dir(f); //ƒ f() to check its scope
+
+//Example2:Timer, without returning a function to see a closure in action
+//setTimeout(param1, param2)
+//param1: the function which will be executed after a certain time. 
+//param2: execution the time setting, with the unit of milliseconds. 1000ms=1s
+const boardPassengers= function(n, wait){
+  const perGroup= n/3;
+  setTimeout(function(){ // This function executes completely and independently from the boardPassengers function above.
+    console.log(`We are now boarding all ${n} passengers.`);
+    console.log(`There are three group, each with ${perGroup} passengers.`)
+  }, wait*1000);
+  console.log(`Will start boarding in ${wait} seconds.`);
+}
+boardPassengers(180, 2);
+// return: Will start boarding in 2 seconds. //Then after 2 seconds, it appears..
+// return: We are now boarding all 180 passengers.
+// return: There are three group, each with 60 passengers.
